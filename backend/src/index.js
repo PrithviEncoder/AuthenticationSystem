@@ -6,6 +6,9 @@ dotenv.config();
 
 const port = process.env.PORT || 9000;
 
+
+
+//database connect and backend server start
 db_connect()
     .then(() => {
         app.listen(port, () => {
