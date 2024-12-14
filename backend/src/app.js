@@ -23,7 +23,7 @@ import userRouter from './routes/user.route.js'
 app.use('/user', userRouter);
 
 //create a react static app using express.static and run when backend will run
-if (NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production") {
 
     app.use(express.static(path.join(_dirname, "/frontend/dist")));
 
