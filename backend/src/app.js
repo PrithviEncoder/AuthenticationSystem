@@ -3,7 +3,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
 import path from 'path'
-
+dotenv.config();
 
 const app = express();
 const _dirname = path.resolve();//directory name
@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(_dirname, "/frontend/dist")));
 
     app.get("*", (req, res) => {
-        res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.js"));
+        res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
     });
 
 }
