@@ -1,37 +1,36 @@
-import express from 'express'
-import cors from 'cors'
-import cookieParser from 'cookie-parser'
-import dotenv from 'dotenv'
-import path from 'path'
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
+import path from 'path';
+
 dotenv.config();
 
 const app = express();
-const _dirname = path.resolve();//directory name
+const __dirname = path.resolve(); // Correct directory name
 
+// CORS Configuration
 app.use(cors({
-    origin:`${process.env.CORS_ORIGIN}`,
-    credentials:true
-}))
+    origin: `${process.env.CORS_ORIGIN}`,
+    credentials: true,
+}));
 
+// Middleware
 app.use(cookieParser());
-
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
-// app.use(express.static("public"));
-app.use(express.json({ limit: '16kb' })) //to accept req from body etc
+app.use(express.json({ limit: '16kb' }));
 
-import userRouter from './routes/user.route.js'
+// Import Routes
+import userRouter from './routes/user.route.js';
 app.use('/user', userRouter);
 
-//create a react static app using express.static and run when backend will run
+// Serve React Frontend in Production
 if (process.env.NODE_ENV === "production") {
-
-    app.use(express.static(path.join(_dirname, "/frontend/dist")));
+    app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
     app.get("*", (req, res) => {
-        res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+        res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
     });
-
 }
 
-export default app
-
+export default app;
