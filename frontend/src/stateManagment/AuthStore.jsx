@@ -2,6 +2,8 @@ import React from 'react'
 import { create } from 'zustand'
 import axios, { isAxiosError } from 'axios'
 
+//when deploying REACT_APP_API_URL will be applied in env of render now it is not there so on dev 3000 will run.
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
 const AuthStore = create((set) => (//return
     {
@@ -20,7 +22,7 @@ const AuthStore = create((set) => (//return
                     email,
                     password,
                 };
-                const response = await axios.post('http://localhost:3000/user/register', formData,
+                const response = await axios.post(`${API_BASE_URL}/user/register`, formData,
                     //very imp without it cookies will not be stored and in backend cors credentials:true;
                     {
                         withCredentials: true
@@ -48,7 +50,7 @@ const AuthStore = create((set) => (//return
             try {
                 set({ isLoading: true, isChecking: true, user: null})
                 
-                const response = await axios.post('http://localhost:3000/user/verify-email',
+                const response = await axios.post(`${API_BASE_URL}/user/verify-email`,
                     {
                         code
                     },
@@ -75,7 +77,7 @@ const AuthStore = create((set) => (//return
           try {
               set({ user: null, isAuthenticated: false, ischeking: true, isLoading: true })
               
-              const response = await axios.post('http://localhost:3000/user/login',
+              const response = await axios.post(`${API_BASE_URL}/user/login`,
                   {
                       email,
                       password
@@ -101,7 +103,7 @@ const AuthStore = create((set) => (//return
             try {
                //axios.get(url, config)
 
-               const response = await axios.get('http://localhost:3000/user/check-auth',
+               const response = await axios.get(`${API_BASE_URL}/user/check-auth`,
                    // In a GET request, the second argument is for configuration options like withCredentials, and you were passing an empty object which had no effect.is cause error
                    { withCredentials: true });
              
@@ -116,7 +118,7 @@ const AuthStore = create((set) => (//return
         forgotPassword: async (email) => {
             set({ user: null, isLoading: false, error: null });
             try {
-                const response = await axios.post('http://localhost:3000/user/forgot-password', { email });
+                const response = await axios.post(`${API_BASE_URL}/user/forgot-password`, { email });
                 set({ isLoading: false, user:response.data.data })
                 return true
             } catch (error) {
@@ -128,7 +130,7 @@ const AuthStore = create((set) => (//return
             set({ user: null, isLoading: true, error: null });
 
             try {
-                const response = await axios.post(`http://localhost:3000/user/reset-password/${token}`,
+                const response = await axios.post(`${API_BASE_URL}/reset-password/${token}`,
                     { password, confirmPassword });
                 
                 set({user:response.data.data,isLoading:false})
@@ -142,7 +144,7 @@ const AuthStore = create((set) => (//return
             set({isLoading:true})
             try {
               //  axios.post(url, data, config)
-             const response = await axios.post('http://localhost:3000/user/logout',{},{ withCredentials: true });
+             const response = await axios.post(`${API_BASE_URL}/user/logout`,{},{ withCredentials: true });
              
                set({ isLoading: false, isAuthenticated: false, user: null })
                //isauthenticated :false it is imp because it is used inside protective and other function with cover element of route
