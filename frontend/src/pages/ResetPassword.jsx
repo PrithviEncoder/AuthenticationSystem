@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Input from '../components/Input'
+import Input from '../components/Input.jsx'
 import { Lock } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
-import AuthStore from '../stateManagment/authStore'
+import AuthStore from '../stateManagment/AuthStore.jsx'
 import toast from 'react-hot-toast'
 
 

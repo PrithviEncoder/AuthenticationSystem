@@ -2,7 +2,7 @@ import { Routes,Route, Navigate } from "react-router-dom"
 import Register_page from "./pages/Register_page.jsx"
 import VerifyEmail from "./pages/VerifyEmail.jsx"
 import Login from "./pages/Login.jsx"
-import AuthStore from "./stateManagment/authStore"
+import AuthStore from "./stateManagment/AuthStore.jsx"
 import { useEffect } from "react"
 import Home from "./pages/Home.jsx"
 import { Toaster } from 'react-hot-toast';

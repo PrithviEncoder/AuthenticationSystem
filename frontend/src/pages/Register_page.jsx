@@ -1,8 +1,8 @@
 import React, { useState,useEffect } from 'react'
-import Input from '../components/Input'
+import Input from '../components/Input.jsx'
 import { Mail, Lock, User } from 'lucide-react'
-import PasswordMeter from '../components/PasswordMeter'
-import AuthStore from '../stateManagment/authStore'
+import PasswordMeter from '../components/PasswordMeter.jsx'
+import AuthStore from '../stateManagment/AuthStore.jsx'
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'
 

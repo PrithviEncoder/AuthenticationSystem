@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AuthStore from '../stateManagment/authStore';
+import AuthStore from '../stateManagment/AuthStore.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const VerifyEmail = () => {

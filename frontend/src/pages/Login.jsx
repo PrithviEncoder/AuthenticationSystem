@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Input from '../components/Input'
+import Input from '../components/Input.jsx'
 import {Mail ,Lock} from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
-import AuthStore from '../stateManagment/authStore'
+import AuthStore from '../stateManagment/AuthStore.jsx'
 import toast from 'react-hot-toast'
 
 const Login = () => {
