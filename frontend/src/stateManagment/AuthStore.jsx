@@ -108,7 +108,7 @@ const AuthStore = create((set) => (//return
                    // In a GET request, the second argument is for configuration options like withCredentials, and you were passing an empty object which had no effect.is cause error
                    { withCredentials: true });
              
-               set({ user: response.data.data, isAuthenticated: true, isChecking: false })
+               set({ user: response.data.data||null, isAuthenticated: true, isChecking: false })
                return true;
            } catch (error) {
                set({ error: null, isChecking: false, isAuthenticated: false })               

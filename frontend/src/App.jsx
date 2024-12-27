@@ -38,7 +38,7 @@ const ProtectRoutes =  ({ children }) => {
 
 const RedirectAuthenticatedUser = ({ children }) => {
   const { isAuthenticated, user } = AuthStore();
-  if (isAuthenticated && user.isVerified) {
+  if ((isAuthenticated) && (user?.isVerified)) {
     return <Navigate to='/' replace />;
   }
   return children;
