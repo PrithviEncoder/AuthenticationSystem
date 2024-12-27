@@ -2,8 +2,9 @@ import React from 'react'
 import { create } from 'zustand'
 import axios, { isAxiosError } from 'axios'
 
+
 //when deploying REACT_APP_API_URL will be applied in env of render now it is not there so on dev 3000 will run.
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+const API_BASE_URL =import.meta.env.MODE==="development" ? "http://localhost:3000" : "";
 
 const AuthStore = create((set) => (//return
     {

@@ -14,6 +14,7 @@ const __dirname = path.resolve(); // Correct directory name
 app.use(cors({
     origin: `${process.env.CORS_ORIGIN}`,//but in deployment or production cors_origin = new url which is from render .
     credentials: true,
+    optionsSuccessStatus: 200,
 }));
 
 // Middleware
