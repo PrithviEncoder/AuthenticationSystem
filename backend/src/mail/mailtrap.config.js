@@ -1,13 +1,13 @@
-import { MailtrapClient } from "mailtrap"
+import sgMail from '@sendgrid/mail';
 import dotenv from 'dotenv'
 
 dotenv.config();
 
- export const client = new MailtrapClient({
-  token: process.env.MAILTRAP_TOKEN,
-});
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+export { sgMail };
 
 export const sender = {
-  email: "prithvi@demomailtrap.com",
+  email: "prithvichawda1@gmail.com",
   name: "Prithvi auth",
 };

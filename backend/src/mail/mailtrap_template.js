@@ -29,6 +29,49 @@ export const VERIFICATION_EMAIL_TEMPLATE = `
 </html>
 `;
 
+export const WELCOME_EMAIL_TEMPLATE = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to {{company_info_name}}</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
+
+    <table role="presentation" style="width: 100%; background-color: #ffffff; padding: 20px;">
+        <tr>
+            <td>
+                <h1 style="color: #333333;">Hello {{name}},</h1>
+                <p style="color: #555555;">Welcome to <strong>{{company_info_name}}</strong>! We're excited to have you with us. Below are some important details about our company:</p>
+
+                <table style="width: 100%; margin-top: 20px; border: 1px solid #ddd;">
+                    <tr>
+                        <td style="padding: 10px; border-right: 1px solid #ddd;"><strong>Company Name:</strong></td>
+                        <td style="padding: 10px;">{{company_info_name}}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border-right: 1px solid #ddd;"><strong>Address:</strong></td>
+                        <td style="padding: 10px;">{{company_info_address}}, {{company_info_city}}, {{company_info_zip_code}}, {{company_info_country}}</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 20px; color: #555555;">If you have any questions, feel free to reach out to us. We're here to help!</p>
+                <p style="color: #555555;">Thank you for choosing {{company_info_name}}.</p>
+
+                <footer style="margin-top: 30px; font-size: 12px; color: #999999;">
+                    <p>Best Regards,</p>
+                    <p><strong>{{company_info_name}}</strong></p>
+                    <p>{{company_info_address}}, {{company_info_city}}, {{company_info_zip_code}}, {{company_info_country}}</p>
+                </footer>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
+`;
+
 export const PASSWORD_RESET_SUCCESS_TEMPLATE = `
 <!DOCTYPE html>
 <html lang="en">

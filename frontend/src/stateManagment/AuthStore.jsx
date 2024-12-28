@@ -131,14 +131,14 @@ const AuthStore = create((set) => (//return
             set({ user: null, isLoading: true, error: null });
 
             try {
-                const response = await axios.post(`${API_BASE_URL}/reset-password/${token}`,
+                const response = await axios.post(`${API_BASE_URL}/user/reset-password/${token}`,
                     { password, confirmPassword });
                 
                 set({user:response.data.data,isLoading:false})
                 
                 return true;
             } catch (error) {
-                set({error:error.response.data.message,isLoading:false})
+                set({error:error.response?.data?.message,isLoading:false})
             }
         },
         logout: async () => {

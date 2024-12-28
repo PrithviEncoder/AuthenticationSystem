@@ -2,18 +2,18 @@ import { asyncHandler } from '../utils/asyncHandler.js'
 import { ApiError } from '../utils/apiError.js'
 import { User } from '../models/user.model.js';
 import { ApiResponse } from '../utils/apiResponse.js'
-import { sendVerificationMail, sendWelcomeMail, sendPasswordResetMail, sendPasswordResetSuccessMail} from "../mail/emails.js"
+import { sendVerificationMail, sendWelcomeMail, sendPasswordResetMail, sendPasswordResetSuccessMail } from "../mail/emails.js"
 import crypto from 'crypto'
 
 const checkAuth = asyncHandler(async (req, res) => {
     try {
         const user = await User.findById(req.userId).select("-password");
-        console.log("is user",user)
+        console.log("is user", user)
         if (!user) {
             throw new ApiError(400, "ERROR in finding user");
         }
 
-        return res.status(200).json(new ApiResponse(200,user,"AUTHENTICATION of User is Successfull"))
+        return res.status(200).json(new ApiResponse(200, user, "AUTHENTICATION of User is Successfull"))
     } catch (error) {
         throw new ApiError(400, error.message || "Error in User AUTHENTICATION");
     }
@@ -161,14 +161,14 @@ const logout = asyncHandler(async (req, res) => {
             sameSite: 'strict'
         }
 
- //options are not neccesary while removing cookie
+        //options are not neccesary while removing cookie
         return res
-        .status(200)
-        .clearCookie("token", options)
-        .json(new ApiResponse(200, {}, "User logout Successfully"));
+            .status(200)
+            .clearCookie("token", options)
+            .json(new ApiResponse(200, {}, "User logout Successfully"));
 
     } catch (error) {
-        throw new ApiError(400,error.message||"Error in logout user")
+        throw new ApiError(400, error.message || "Error in logout user")
     }
 })
 
@@ -197,7 +197,7 @@ const forgotPassword = asyncHandler(async (req, res) => {
         await sendPasswordResetMail(user.email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`);
 
 
-        return res.status(200).json(new ApiResponse(200,user, "Forgot password is Successful"));
+        return res.status(200).json(new ApiResponse(200, user, "Forgot password is Successful"));
 
     } catch (error) {
         throw new ApiError(400, error.message || "There is some error in forgot password")
@@ -208,37 +208,40 @@ const resetPassword = asyncHandler(async (req, res) => {
     const { token } = req.params;
     const { password, confirmPassword } = req.body;
 
-   try {
-     if (password !== confirmPassword) {
-         throw new ApiError(400, "Password and confirm Password are different");
-     }
-     if (!token) {
-         throw new ApiError(500,"Error in getting params token")
-     }
-      
-     const user = await User.findOne({
-         resetPasswordToken: token,
-         resetPasswordExpiry: { $gt: Date.now() }
-     });
- 
-     if (!user) {
-         return res.status(400).json({ success: false, message: "User not found for reset password" });
-     }
-     
-     user.password = password;
-     user.resetPasswordToken = undefined;
-     user.resetPasswordExpiry = undefined;
-     await user.save();
- 
-       await sendPasswordResetSuccessMail(user.email);
+    try {
+        if (password === "" || confirmPassword === "") {
+            throw new ApiError(400, "Empty field are not allowd !");
+        }
+        if (password !== confirmPassword) {
+            throw new ApiError(400, "Password and confirm Password are different");
+        }
+        if (!token) {
+            throw new ApiError(500, "Error in getting params token")
+        }
 
-     
-       return res.status(200).json(new ApiResponse(200, user, "Reset Password is send Successfully"))
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpiry: { $gt: Date.now() }
+        });
 
-   } catch (error) {
-    throw new ApiError(400,error.message||"Error in reset password")
-   }
+        if (!user) {
+            return res.status(400).json({ success: false, message: "User not found for reset password" });
+        }
+
+        user.password = password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpiry = undefined;
+        await user.save();
+
+        await sendPasswordResetSuccessMail(user.email);
+
+
+        return res.status(200).json(new ApiResponse(200, user, "Reset Password is send Successfully"))
+
+    } catch (error) {
+        throw new ApiError(400, error.message || "Error in reset password")
+    }
 
 })
 
-export { checkAuth,register, verifyEmail, login,logout, forgotPassword ,resetPassword}
+export { checkAuth, register, verifyEmail, login, logout, forgotPassword, resetPassword }

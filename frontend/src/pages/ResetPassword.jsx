@@ -11,7 +11,7 @@ const ResetPassword = () => {
     const [pass, setPass] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
 
-    const { token } = useParams();
+    const { token } = useParams();//since you have recieve params by this name in routes in frontend
     const { resetPassword, error } = AuthStore();
     const navigate = useNavigate();
 
