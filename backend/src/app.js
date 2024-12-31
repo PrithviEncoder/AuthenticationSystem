@@ -11,8 +11,17 @@ const __dirname = path.resolve(); // Correct directory name
 
 
 // CORS Configuration
-app.use(cors({
-    origin: `${process.env.CORS_ORIGIN}`,//but in deployment or production cors_origin = new url which is from render .
+const allowedOrigin=[`${process.env.CORS_ORIGIN}`,"https://prithviencoder.github.io"]
+app.use(cors({//but in deployment or production cors_origin = new url which is from render .
+    origin: (origin, callback) => {
+        if (allowedOrigin.includes(origin) || !origin) {
+            callback(null, true)
+        }  
+        else {
+            callback(new Error("This request is blocked by cors"))
+        }
+
+    },
     credentials: true,
     optionsSuccessStatus: 200,
 }));
